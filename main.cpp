@@ -24,7 +24,7 @@ int main()
     //           << std::endl;
 
     // Game initialization
-    game.initialize(10, Level::EASY_1, Mode::DEBUG, false, "Pseudo");
+    game.initialize(10, Level::EASY_1, Mode::ARENA, false, "Pseudo");
 
     while (!game.isAllGameFinish())
     {
