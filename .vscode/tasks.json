@@ -9,6 +9,9 @@
                 "-g",
                 "-fno-lto",
                 "${workspaceFolder}\\main.cpp", 
+                "${workspaceFolder}\\TicTacToe.cpp",
+                "${workspaceFolder}\\UltimateTicTacToe.cpp",
+                "${workspaceFolder}\\Minimax.cpp",
                 "-o",
                 "${workspaceFolder}\\main.exe",
                 
