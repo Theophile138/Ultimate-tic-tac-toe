@@ -1,0 +1,10 @@
+# Build artifacts
+*.exe
+
+
+# IDE settings
+.vscode/
+
+
+# Allegro DLLs (optional: common to ignore, but keep if needed for portability)
+# *.dll
