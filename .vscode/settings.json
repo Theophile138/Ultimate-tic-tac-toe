@@ -1,0 +1,5 @@
+{
+    "code-runner.executorMap": {
+        "cpp": "cd $dir && g++ $fileName TicTacToe.cpp UltimateTicTacToe.cpp Minimax.cpp -o $fileNameWithoutExt.exe -I. -L. -fno-lto -lUTTTLib allegro_font-5.2.dll allegro_ttf-5.2.dll allegro_image-5.2.dll allegro_primitives-5.2.dll allegro-5.2.dll && $dir$fileNameWithoutExt.exe"
+    }
+}

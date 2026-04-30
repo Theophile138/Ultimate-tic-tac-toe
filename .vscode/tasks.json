@@ -8,9 +8,12 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "-fno-lto",
-                "${file}", 
+                "${workspaceFolder}\\main.cpp", 
+                "${workspaceFolder}\\TicTacToe.cpp",
+                "${workspaceFolder}\\UltimateTicTacToe.cpp",
+                "${workspaceFolder}\\Minimax.cpp",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${workspaceFolder}\\main.exe",
                 
                 // --- AJOUTS ICI ---
                 "-I.",                               // Cherche les headers (.h) dans le dossier actuel 
@@ -24,7 +27,7 @@
                 "-lallegro-5.2"                      // Lien vers la base d'allegro 
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
