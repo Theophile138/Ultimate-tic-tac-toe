@@ -1,11 +1,11 @@
 #include <iostream>
 #include "main.h"
-#include "MyAI.hpp"
+#include "AI.h"
 
 int main()
 {
     // Game initialization
-    game.initialize(10, Level::MEDIUM_2, Mode::ARENA, false, "Pseudo");
+    game.initialize(10, Level::MEDIUM_1, Mode::ARENA, false, "Pseudo");
     
     AI myAI;
 

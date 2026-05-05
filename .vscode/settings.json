@@ -1,5 +1,5 @@
 {
     "code-runner.executorMap": {
-        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt.exe -I. -L. -fno-lto -lUTTTLib allegro_font-5.2.dll allegro_ttf-5.2.dll allegro_image-5.2.dll allegro_primitives-5.2.dll allegro-5.2.dll && $dir$fileNameWithoutExt.exe"
+        "cpp": "cd $dir && g++ *.cpp -o main.exe -I. -L. -fno-lto -lUTTTLib -lallegro_font-5.2 -lallegro_ttf-5.2 -lallegro_image-5.2 -lallegro_primitives-5.2 -lallegro-5.2 && $dirmain.exe"
     }
 }
