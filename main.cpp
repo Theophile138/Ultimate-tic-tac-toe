@@ -1,13 +1,22 @@
 #include <iostream>
+#include <cstdlib>
 #include "main.h"
 #include "MyAI.hpp"
 
+// DEBUG: Set to true to close the program automatically after tests
+const bool AUTO_EXIT = true;
+
 int main()
 {
-    // Game initialization
-    game.initialize(10, Level::MEDIUM_2, Mode::ARENA, false, "Pseudo");
+    // Game initialization: 10 games against MEDIUM_2
+    game.initialize(10, Level::MEDIUM_2, Mode::ARENA, false, "MasterAI");
     
     AI myAI;
+    int myWins = 0;
+    int oppWins = 0;
+    int ties = 0;
+
+    std::cout << "--- STARTING AUTO-TEST MISSION ---" << std::endl;
 
     while (!game.isAllGameFinish())
     {
@@ -15,21 +24,34 @@ int main()
 
         while (!game.isFinish())
         {
-            // Get IA move
             GameMove gameMove{-1, -1};
             game.getMove(gameMove);
-            std::cerr << "IA move " << gameMove.row << " " << gameMove.col << std::endl;
-
-            // Register IA move (handles the -1, -1 case if we play first)
             myAI.registerOpponentMove(gameMove.row, gameMove.col);
 
-            // Compute our move
             GameMove myMove = myAI.computeBestMove();
-
-            // Send your move
-            std::cerr << "Send move " << myMove.row << " " << myMove.col << std::endl;
             game.setMove(myMove);
         }
+
+        Winner w = game.getWinner();
+        if (w == Winner::PLAYER) {
+            myWins++;
+            std::cout << "Result: WIN" << std::endl;
+        } else if (w == Winner::IA) {
+            oppWins++;
+            std::cout << "Result: LOSS" << std::endl;
+        } else {
+            ties++;
+            std::cout << "Result: TIE" << std::endl;
+        }
+    }
+
+    std::cout << "--- MISSION FINAL SCORE ---" << std::endl;
+    std::cout << "Wins: " << myWins << " | Losses: " << oppWins << " | Ties: " << ties << std::endl;
+    std::cout << "Win Rate: " << (myWins * 100.0 / (myWins + oppWins + ties)) << "%" << std::endl;
+
+    if (AUTO_EXIT) {
+        std::cout << "Auto-exiting as requested..." << std::endl;
+        std::exit(0);
     }
 
     return 0;
