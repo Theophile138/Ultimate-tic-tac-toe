@@ -5,7 +5,7 @@
 int main()
 {
     // Game initialization
-    game.initialize(10, Level::MEDIUM_1, Mode::ARENA, false, "Pseudo");
+    game.initialize(10, Level::MEDIUM_2, Mode::DEBUG, false, "Pseudo");
     
     AI myAI;
 
