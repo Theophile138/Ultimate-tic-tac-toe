@@ -1,0 +1,20 @@
+graph LR
+    Score[Score Total] --- MacroWins[Grilles gagnées]
+    Score --- Position[Positionnement local]
+    
+    subgraph MacroBoard [Grille Globale - MacroBoard]
+        MacroWins --- MeWin[+100 par grille gagnée par moi]
+        MacroWins --- OppWin[-100 par grille gagnée par adversaire]
+    end
+    
+    subgraph SmallBoard [Grille Locale - SmallBoard]
+        Position --- Centers[Centres : +3 moi / -3 adversaire]
+        Position --- Corners[Coins : +1 moi / -1 adversaire]
+        Position --- Others[Autres : 0]
+    end
+    
+    style MeWin fill:#d4edda,stroke:#28a745
+    style OppWin fill:#f8d7da,stroke:#dc3545
+    style Centers fill:#cce5ff,stroke:#004085
+    style Corners fill:#fff3cd,stroke:#856404
+    style Score font-weight:bold,fill:#eee

@@ -1,0 +1,73 @@
+classDiagram
+    namespace Structs {
+        class GameMove {
+            +int row
+            +int col
+        }
+        class IGame {
+            <<interface>>
+            +getWinner() Winner
+            +isFinish() bool
+            +isAllGameFinish() bool
+            +getMove(GameMove& outMove) bool
+            +setMove(const GameMove& move) void
+            +initialize(...) void
+        }
+    }
+
+    namespace Classes {
+        class BoardState {
+            +int board[9][9]
+            +int macroBoard[3][3]
+            +int nextMacroRow
+            +int nextMacroCol
+            +BoardState()
+            +checkSmallBoardWinner(int macroRow, int macroCol) int
+            +updateMove(int row, int col, int player) void
+            +getValidMoves() vector~GameMove~
+            +isTerminal() bool
+            +cloneAndApply(const GameMove& move, int player) BoardState
+            +evaluate() int
+        }
+        class AI {
+            +BoardState currentState
+            +reset() void
+            +registerOpponentMove(int row, int col) void
+            +computeBestMove() GameMove
+            -minimax(BoardState state, int depth, int alpha, int beta, bool isMaximizing) int
+        }
+    }
+
+    class Level {
+        <<enumeration>>
+        EASY_1
+        EASY_2
+        MEDIUM_1
+        MEDIUM_2
+        HARD_1
+        HARD_2
+        VERY_HARD_1
+        VERY_HARD_2
+    }
+
+    class Mode {
+        <<enumeration>>
+        DEBUG
+        ARENA
+    }
+
+    class Winner {
+        <<enumeration>>
+        NO_WINNER
+        IA
+        PLAYER
+        IA_AND_PLAYER
+    }
+
+    AI --> BoardState : manages
+    BoardState ..> GameMove : uses
+    AI ..> GameMove : uses
+    IGame ..> GameMove : uses
+    IGame ..> Level : uses
+    IGame ..> Mode : uses
+    IGame ..> Winner : uses

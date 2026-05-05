@@ -1,0 +1,23 @@
+graph TD
+    Start((Début de la partie)) --> Init[Initialisation du jeu]
+    Init --> GameLoop{Toutes les parties finies ?}
+    
+    GameLoop -- Non --> ResetAI[Reset de l'IA]
+    ResetAI --> SubGameLoop{Partie actuelle finie ?}
+    
+    SubGameLoop -- Non --> GetOpponentMove[Récupérer coup adversaire]
+    GetOpponentMove --> RegisterMove[Enregistrer coup dans BoardState]
+    RegisterMove --> ComputeAI[Calculer meilleur coup AI]
+    
+    subgraph AI_Decision [Processus de Décision AI]
+        ComputeAI --> CheckDepth{Profondeur atteinte ou Fin ?}
+        CheckDepth -- Non --> Minimax[Minimax + Alpha-Beta]
+        Minimax --> Evaluate[Appel fonction evaluate]
+    end
+    
+    Evaluate --> BestMove[Retourner le meilleur coup]
+    BestMove --> SendMove[Envoyer le coup au moteur]
+    SendMove --> SubGameLoop
+    
+    SubGameLoop -- Oui --> GameLoop
+    GameLoop -- Oui --> End((Fin du programme))
