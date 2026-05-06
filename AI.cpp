@@ -18,21 +18,19 @@ GameMove AI::computeBestMove() {
         return {0, 0}; 
     }
     
-    // Prevent huge branching on turn 1
     if (validMoves.size() == 81) {
         currentState.updateMove(4, 4, PLAYER_ME);
         return {4, 4};
     }
 
     GameMove bestMove = validMoves[0];
-    int bestScore = -1000000;
+    int bestScore = -2000000;
     
-    // If there are many open moves (e.g., after being sent to an open board), limit depth
     int depth = (validMoves.size() > 9) ? DEPTH_OPEN : DEPTH_NORMAL; 
 
     for (const auto& move : validMoves) {
         BoardState nextState = currentState.cloneAndApply(move, PLAYER_ME);
-        int score = minimax(nextState, depth - 1, -1000000, 1000000, false);
+        int score = minimax(nextState, depth - 1, -2000000, 2000000, false);
         if (score > bestScore) {
             bestScore = score;
             bestMove = move;
@@ -52,7 +50,7 @@ int AI::minimax(const BoardState& state, int depth, int alpha, int beta, bool is
     if (validMoves.empty()) return state.evaluate();
 
     if (isMaximizing) {
-        int maxEval = -1000000;
+        int maxEval = -2000000;
         for (const auto& move : validMoves) {
             BoardState nextState = state.cloneAndApply(move, PLAYER_ME);
             int eval = minimax(nextState, depth - 1, alpha, beta, false);
@@ -62,7 +60,7 @@ int AI::minimax(const BoardState& state, int depth, int alpha, int beta, bool is
         }
         return maxEval;
     } else {
-        int minEval = 1000000;
+        int minEval = 2000000;
         for (const auto& move : validMoves) {
             BoardState nextState = state.cloneAndApply(move, PLAYER_OPP);
             int eval = minimax(nextState, depth - 1, alpha, beta, true);

@@ -1,33 +1,26 @@
 graph LR
     Score[Score Total] --- WinCheck[Victoire Immédiate]
-    Score --- MacroWins[Grilles gagnées - Macro]
-    Score --- AlignBonus[Bonus Alignement - 2/3]
-    Score --- Position[Positionnement local - Micro]
+    Score --- MacroEval[Évaluation MacroBoard]
+    Score --- MicroEval[Somme des Grilles Micro]
+    Score --- FreeMove[Malus Free Move]
     
-    subgraph Termination [Fin de Partie]
-        WinCheck --- Win[+1.000.000 : Gagné]
-        WinCheck --- Loss[-1.000.000 : Perdu]
+    subgraph Termination [Fin de Match]
+        WinCheck --- Win[+1.000.000]
+        WinCheck --- Loss[-1.000.000]
     end
 
-    subgraph MacroWeights [Poids MacroBoard]
-        MacroWins --- Center[Centre : +250]
-        MacroWins --- Corners[Coins : +150]
-        MacroWins --- Edges[Bords : +100]
+    subgraph MacroBoard [Niveau Global]
+        MacroEval --- MacroWeight[Coefficients : Centre 1.75, Coins 1.4]
+        MacroEval --- MacroProgress[Alignements : Menace +/- 150, Progrès +/- 30]
     end
     
-    subgraph Threat [Menaces & Blocage]
-        AlignBonus --- Attack[+50 : Menace créée]
-        AlignBonus --- Defense[-50 : Menace adverse]
+    subgraph MicroBoards [Niveau Local]
+        MicroEval --- LocalWeights[Position : Centre 0.22, Coins 0.20]
+        MicroEval --- LocalThreats[Menaces locales : +/- 45]
+        MicroEval --- LocalDefense[Priorité défense : -90 si menacé]
     end
     
-    subgraph MicroBoard [Détail MicroBoard]
-        Position --- MicroCenter[Centre : +3]
-        Position --- MicroCorners[Coins : +1]
-    end
-    
-    style Win fill:#28a745,color:#fff,stroke-width:4px
-    style Loss fill:#dc3545,color:#fff,stroke-width:4px
-    style Center fill:#cce5ff,stroke:#004085
-    style Attack fill:#d4edda,stroke:#28a745
-    style Defense fill:#f8d7da,stroke:#dc3545
+    style Win fill:#28a745,color:#fff
+    style Loss fill:#dc3545,color:#fff
+    style FreeMove fill:#ffc107,stroke:#856404
     style Score font-weight:bold,fill:#eee

@@ -3,9 +3,8 @@
 
 #include "BoardState.h"
 
-// --- RÉGLAGES DE L'IA ---
-const int DEPTH_NORMAL = 6; // Profondeur quand on joue dans une petite grille
-const int DEPTH_OPEN   = 5; // Profondeur quand on peut jouer n'importe où (plus de 9 choix)
+const int DEPTH_NORMAL = 6; 
+const int DEPTH_OPEN   = 5; 
 
 class AI {
 public:
